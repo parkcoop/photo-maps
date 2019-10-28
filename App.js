@@ -2,31 +2,11 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import { ApolloProvider, graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo'
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 
-const FEED_QUERY = gql`
-  {
-    feed {
-      links {
-        postedBy {
-          name
-        }
-        createdAt
-        url
-        id
-        description
-        votes {
-          user {
-            name
-          }
-        }
-      }
-      count
-    }
-  }
-`
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -38,41 +18,16 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-
-export default function App() {
-
-  const [outputText, setOutputText] = useState('My name is Photo-Maps')
+const Test = () => {
   return (
-    <ApolloProvider client={client}>
-      <View style={styles.container}>
-        <Text>{outputText}</Text>
-        <Query query={FEED_QUERY}>
-          {({ loading, error, data }) => {
-            console.log('lol',data)
-            if (loading) return <Text>Fetching</Text>
-            if (error) return <Text>oops</Text>
+    <View>This is test</View>
+  )
+}
 
-            const linksToRender = data.feed.links 
-
-            return (
-                <ScrollView>
-                  {linksToRender.map((link, index) => (
-                    <View key={link.id} style={styles.post_container}>
-                      <Text>{link.postedBy.name}</Text>
-                      <Text>{link.url}</Text>
-                      <Text>{link.description}</Text>
-                    </View>
-                  ))}
-                </ScrollView>
-              )
-          }}
-        </Query>
-
-
-        <Button title="who" onPress={()=> setOutputText('man o man')}></Button>
-      </View>
-    </ApolloProvider>
-  );
+const HomeScreen = () => {
+  return (
+    <View><Text>Home</Text></View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -99,3 +54,18 @@ const styles = StyleSheet.create({
     color: 'red',
   },
 });
+
+const AppNavigator = createStackNavigator({
+  Home: HomeScreen,
+});
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component {
+  render() {
+    return (
+    <ApolloProvider client={client}>
+      <AppContainer />
+    </ApolloProvider>
+    )
+  }
+}
