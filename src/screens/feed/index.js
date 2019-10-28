@@ -1,3 +1,7 @@
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import { Query } from 'react-apollo'
+
 import gql from 'graphql-tag';
 
 const FEED_QUERY = gql`
@@ -55,3 +59,30 @@ export default function Feed() {
         </View>
     );
   }
+
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'white',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    post_container: {
+      backgroundColor: 'red',
+      width: 200,
+      borderRadius: 100,
+      borderWidth: 0.5,
+      borderColor: '#d6d7da',
+      margin: 5,
+      padding: 10
+    },
+    title: {
+      fontSize: 19,
+      fontWeight: 'bold',
+    },
+    activeTitle: {
+      color: 'red',
+    },
+  });
+  

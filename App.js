@@ -5,7 +5,7 @@ import { ApolloProvider, graphql } from 'react-apollo';
 import { Query } from 'react-apollo'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-
+import Feed from './src/screens/feed'
 
 
 const client = new ApolloClient({
@@ -20,15 +20,24 @@ const client = new ApolloClient({
 
 const Test = () => {
   return (
-    <View>This is test</View>
+    <View><Text>This is test</Text></View>
   )
 }
 
-const HomeScreen = () => {
-  return (
-    <View><Text>Home</Text></View>
-  )
+class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Test')}
+        />
+      </View>
+    );
+  }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -57,6 +66,7 @@ const styles = StyleSheet.create({
 
 const AppNavigator = createStackNavigator({
   Home: HomeScreen,
+  Test: Feed
 });
 const AppContainer = createAppContainer(AppNavigator);
 
