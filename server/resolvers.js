@@ -1,0 +1,31 @@
+// refactor
+
+const User = require('./connectors')
+
+const resolvers = {
+    Query: {
+        users: () => User.find({}, (error, users) => {
+            if (error) throw new Error(error)
+            console.log('users: ', users)
+
+            return users
+        })
+    },
+    Mutation: {
+        createUser: async function(_, args) {
+            User.find({username:args.username}).then(user => {
+                const newUser = new User({
+                    username: args.username,
+                    password: args.password
+                });
+                newUser.save()
+                return newUser
+            })
+
+            
+        },
+
+    }
+}
+
+module.exports = resolvers

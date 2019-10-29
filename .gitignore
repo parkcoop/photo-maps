@@ -1,5 +1,6 @@
-node_modules/**/*
-.expo/*
+node_modules
+api-old
+.expo
 npm-debug.*
 *.jks
 *.p8
@@ -9,6 +10,8 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
-
+.env
+/client/node_modules
 # macOS
 .DS_Store
+
