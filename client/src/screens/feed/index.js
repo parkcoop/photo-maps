@@ -24,7 +24,7 @@ export default function Feed() {
 
     const [outputText, setOutputText] = useState('My name is Photo-Maps')
     return (
-               <ApolloProvider client={client}>
+      <ApolloProvider client={client}>
         <View style={styles.container}>
           <Text>{outputText}</Text>
           <Query query={FEED_QUERY}>

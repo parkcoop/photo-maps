@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView,ActivityIndicator, AsyncStorage, StatusBar } from 'react-native';
+import { StyleSheet, Image, View, ScrollView,ActivityIndicator, AsyncStorage, StatusBar, KeyboardAvoidingView } from 'react-native';
 import strings from '../../config/strings';
 import Button from "../../components/elements/Button";
 import FormTextInput from "../../components/elements/FormTextInput"
 import colors from "../../config/colors"
-
+import imageLogo from '../../assets/images/logo-black.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -23,9 +23,9 @@ const Login = () => {
   }
 
   return (
-      <View style={styles.container}>
-          {/* <Image source={imageLogo} style={styles.logo} /> */}
-          <View style={styles.form}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+          <Image source={imageLogo} style={styles.logo} />
+          <View  style={styles.form}>
               <FormTextInput
                   value={email}
                   onChangeText={handleEmailChange}
@@ -38,19 +38,31 @@ const Login = () => {
               />
               <Button label={strings.LOGIN} onPress={handleLoginPress} />
           </View>
-      </View>
+      </KeyboardAvoidingView>
   )
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.PLUM,
-
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.WHITE,
   },
   form: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     width: "80%"
+  },
+  logo: {
+    // width: 0
+    marginTop: 150,
+    width: 310,
+    height: 35
   }
-}
+})
+  
+
 
 export default Login

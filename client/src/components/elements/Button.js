@@ -13,7 +13,16 @@ const Button = ({ label, onPress }) => {
 const styles = StyleSheet.create({
     container: {
         width: "50%",
-        backgroundColor: colors.NAVY
+        backgroundColor: colors.NAVY,
+        height: 50,
+        paddingVertical:10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 25,
+        borderColor: colors.RED,
+        borderWidth: 1
+
+        
     },
     text: {
         color: colors.WHITE

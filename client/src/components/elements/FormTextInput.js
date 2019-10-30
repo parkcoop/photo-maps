@@ -15,7 +15,10 @@ const FormTextInput = ({style, ...otherProps}) => {
 const styles = StyleSheet.create({
     textInput: {
         height: 40,
-        borderColor: colors.PLUM
+        width: '50%',
+        borderColor: colors.STONE,
+        borderBottomWidth: 1,
+        marginBottom: 20
     }
 })
 

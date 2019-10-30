@@ -10,30 +10,6 @@ import HomeScreen from './src/screens/Home'
 import LoginScreen from './src/screens/Login'
 
 
-// class HomeScreen extends React.Component {
-//   static navigationOptions = {
-//     title: 'Welcome to the app!',
-//   };
-
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Button title="Show me more of the app" onPress={this._showMoreApp} />
-//         <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
-//       </View>
-//     );
-//   }
-
-//   _showMoreApp = () => {
-//     this.props.navigation.navigate('Other');
-//   };
-
-//   _signOutAsync = async () => {
-//     await AsyncStorage.clear();
-//     this.props.navigation.navigate('Auth');
-//   };
-// }
-
 class OtherScreen extends React.Component {
   static navigationOptions = {
     title: 'Lots of features here',
@@ -66,7 +42,7 @@ class SettingsScreen extends React.Component {
 }
 
 const TabNavigator = createBottomTabNavigator({
-  Home: HomeScreen,
+  Home: LoginScreen,
   Settings: SettingsScreen,
 });
 
@@ -85,16 +61,15 @@ class AuthLoadingScreen extends React.Component {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    console.log(userToken)
+    this.props.navigation.navigate('Auth');
+    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
   // Render any loading content that you like here
   render() {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator />
-        <StatusBar barStyle="default" />
-      </View>
+      <Text>Loading...</Text>
     );
   }
 }
@@ -102,10 +77,7 @@ class AuthLoadingScreen extends React.Component {
 //   Home: HomeScreen,
 //   Test: Feed
 // });
-const AppStack = createStackNavigator({ 
-  Home: HomeScreen, 
-  Other: OtherScreen 
-});
+
 const AuthStack = createStackNavigator({ 
   SignIn: LoginScreen 
 });
@@ -113,8 +85,8 @@ const AuthStack = createStackNavigator({
 export default createAppContainer(createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
-    App: createAppContainer(TabNavigator),
-    Auth: AuthStack,
+    App: createAppContainer(HomeScreen),
+    Auth: LoginScreen,
   },
   {
     initialRouteName: 'AuthLoading',

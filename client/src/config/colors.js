@@ -1,9 +1,9 @@
 const colors = {
-  SAND: "rgba(247, 197, 159, 1)",
-  NAVY: "rgba(42, 50, 75, 1)",
-  PEACH: "rgba(247, 113, 125, 1)",
-  PLUM: "rgba(222, 99, 154, 1)",
-  WHITE: "rgba(254, 254, 254, 1)"
+  RED: "rgba(226, 109, 90, 1)",
+  NAVY: "rgba(76, 87, 96, 1)",
+  SAND: "rgba(249, 222, 201, 1)",
+  WHITE: "rgba(252, 247, 255, 1)",
+  STONE: "rgba(67, 62, 63, 1)"
 };
 
 export default colors;
