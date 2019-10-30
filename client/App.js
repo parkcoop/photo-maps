@@ -5,9 +5,9 @@ import { ApolloProvider, graphql } from 'react-apollo';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
-import Feed from './src/screens/feed'
-import HomeScreen from './src/screens/home'
-import SignInScreen from './src/screens/login'
+import Feed from './src/screens/Feed'
+import HomeScreen from './src/screens/Home'
+import LoginScreen from './src/screens/Login'
 
 
 // class HomeScreen extends React.Component {
@@ -107,7 +107,7 @@ const AppStack = createStackNavigator({
   Other: OtherScreen 
 });
 const AuthStack = createStackNavigator({ 
-  SignIn: SignInScreen 
+  SignIn: LoginScreen 
 });
 
 export default createAppContainer(createSwitchNavigator(

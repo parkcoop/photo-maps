@@ -5,7 +5,8 @@ import { ApolloProvider, graphql } from 'react-apollo';
 import {AsyncStorage} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import Feed from '../feed';
+import Feed from '../Feed';
+import LoginScreen from '../Login'
 
 // const client = new ApolloClient({
 //     link: new HttpLink({
@@ -18,7 +19,7 @@ import Feed from '../feed';
 //   });
 
 const AppNavigator = createStackNavigator({
-  Home: createAppContainer(Feed),
+  Home: createAppContainer(LoginScreen),
   // Test: Feed
 });
 
