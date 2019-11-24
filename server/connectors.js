@@ -9,7 +9,7 @@ mongoose.connect(process.env.CONNECTION_STRING, {useNewUrlParser: true}, (error)
 
 const user = new Schema({
     username: String,
-    password: String
+    password: String,
 })
 
 module.exports = mongoose.model("User", user)

@@ -1,15 +1,21 @@
 type Query {
     users: [User!]!
-    getUser(id: String): User
+    getUser(id: String): User!
 }
 
 type Mutation {
-    createUser(username: String, password: String): User
+    signup(username: String!, password: String!): AuthPayload
+    login(username: String!, password: String!): AuthPayload
+}
+
+type AuthPayload {
+    token: String
+    user: User
 }
 
 type User {
-    username: String
-    password: String
+    username: String!
+    password: String!
 }
 
 schema {

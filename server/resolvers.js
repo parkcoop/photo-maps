@@ -12,7 +12,19 @@ const resolvers = {
         })
     },
     Mutation: {
-        createUser: async function(_, args) {
+        signup: async function(_, args) {
+            User.find({username:args.username}).then(user => {
+                const newUser = new User({
+                    username: args.username,
+                    password: args.password
+                });
+                newUser.save()
+                return newUser
+            })
+
+            
+        },
+        login: async function(_, args) {
             User.find({username:args.username}).then(user => {
                 const newUser = new User({
                     username: args.username,
