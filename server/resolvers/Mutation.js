@@ -3,49 +3,43 @@ const jwt = require('jsonwebtoken')
 const { APP_SECRET } = require('../utils')
 const User = require('../connectors')
 
-signup = async (parent, args) => {
-    const password = await bcrypt.hash(args.password, 10)
-    const authPayload = await User.find({username:args.username})
-        .then(user => {
-            if (user.length) return new Error('User already exists')
-            const newUser = new User({
-                username: args.username,
-                password: password
-            });
-            newUser.save();
-            const token = jwt.sign({userId: user.id}, APP_SECRET)
-            return {
-                token,
-                user: newUser,
-            }
+const signup = async (_, args) => {
+    try {
+        const password = await bcrypt.hash(args.password, 10)
+        const userCheck = await User.find({username:args.username})
+        if (userCheck.length) return new Error('User already exists')
+        const newUser = new User({
+            username: args.username,
+            password: password
         })
-        .catch(err=> console.log(err))
-    return authPayload
+        newUser.save();
+        const token = jwt.sign({userId: newUser.id}, APP_SECRET)
+        return {
+            token,
+            user: newUser
+        }
+    }
+    catch(err) {
+        console.log(err)
+    }
 }
 
-login = async (parent, args) => {
-    return User.findOne({username:args.username})
-        .then(async user=>{
-            if (!user) return new Error('no user found')
-            // let password = await bcrypt.hash(args.password, 10, (err, hash) => {
-                const valid = bcrypt.compare(args.password, user.password)
-                console.log(valid, args.password, user.password)
-                // const valid = (args.password === user.password)
-                // if (!valid) return new Error('invalid password')
-                if (valid) {
-                    const token = jwt.sign({userId: user.id}, APP_SECRET)
-                    return {
-                        token,
-                        user
-                    }
-                }
-            // })
-
-          
-        })
-        .catch(err=> {
-            console.log(err)
-        })
+const login = async (_, args) => {
+    try {
+        const user = await User.findOne({username:args.username});
+        if (!user) return new Error('No user found');
+        const valid = await bcrypt.compare(args.password, user.password)
+        if (valid) {
+            const token = jwt.sign({userId:user.id}, APP_SECRET)
+            return {
+                token,
+                user,
+            } 
+        } else return new Error('Invalid password')
+    }
+    catch(err) {
+        console.log(err)
+    }
 }
 
 
