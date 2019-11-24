@@ -6,6 +6,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './src/screens/Home'
+import {UserContext, ThemeContext} from './src/context'
 
 
 
@@ -25,7 +26,9 @@ export default class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-       <HomeScreen />
+        <UserContext.Provider value={{token:'', username: ''}}>
+          <HomeScreen />
+        </UserContext.Provider>
       </ApolloProvider>
     )
   }

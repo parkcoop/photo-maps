@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, Image, View, ScrollView,ActivityIndicator, AsyncStorage, StatusBar, KeyboardAvoidingView, Text } from 'react-native';
 import strings from '../../config/strings';
 import Button from "../../components/elements/Button";
 import FormTextInput from "../../components/elements/FormTextInput"
 import colors from "../../config/colors"
 import imageLogo from '../../assets/images/logo-black.png';
-
+import { withNavigation } from 'react-navigation';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import { UserContext } from '../../context';
 
 
 // const SIGNUP = gql`
@@ -37,7 +38,13 @@ const LOGIN = gql`
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [login, { authPayload }] = useMutation(LOGIN);
+  const [session, setSession] = useState(useContext(UserContext));
+console.log(session)
+  const [login, { loading, error, data }] = useMutation(LOGIN);
+
+  useEffect(() => {
+    console.log('session updated lets navigate')
+  }, [session]); // Only re-run the effect if count changes
 
   const handleUsernameChange = (input) => {
       setUsername(input)
@@ -47,17 +54,18 @@ const Login = () => {
       setPassword(input)
   }
 
-  handleLoginPress = () => {
-    console.log(username, password)
-      login({variables: {username, password}})
-      .then(payload=>{
-        console.log('payloadthen', payload)
-      })
-      .catch(err=>{
-        console.log(err)
-      })
+  const handleLoginPress = async () => {
+    try {
+      const authPayload = await login({variables: {username, password}})
 
-      console.log('payload', authPayload)
+      // if (!loading) {
+        console.log('lol', authPayload)
+        setSession({token: authPayload.data.login.token, username: authPayload.data.login.user.username})
+      // }
+    }
+    catch(err) {
+      console.log(err)
+    }
   }
 
   return (
